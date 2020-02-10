@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 	<head>
-		<script src="./jquery-min.js"></script>
+		<meta charset="UTF-8">
+		<title>Cities project</title>
 		<style>
 			#main {
 				width: 82%;
@@ -42,10 +43,9 @@
 			  border-radius: 5px;
 			  opacity: 0;
 			  transition: left ease .3s, width ease .3s, opacity ease .15s;
-			  
-			  &.is-active {
-			    opacity: 1;
-			  }
+			}
+			.line.is-active{
+				opacity: 1;
 			}
 	
 			.timeWrapper{
@@ -73,115 +73,117 @@
 
 		<span class="line"></span>
 		<hr/>
+
+		<script src="./jquery-min.js"></script>
+		<script>
+
+			// Create DOM elements dynamically
+			fetch('./navigation.json')
+	  			.then(function(resp){
+	  				return resp.json();
+	  			})
+	 			.then(function(data) {
+	 				document.getElementById("main").innerHTML = data.cities.map(el => "<span class='cityName'>"+"<a class='link'>"+el.section+"</a>"+"</span>");
+	 				var newMain = document.getElementById("main").innerHTML.replace(/,/g, '').replace(/-/g, ' ');
+	 				document.getElementById("main").innerHTML = newMain;
+	 			})
+
+	 		// Change text color on click
+	 		window.addEventListener('load', (event) => {
+		 		jQuery("span").click(function(e) {
+		 			jQuery('span').removeClass("activeText");
+		 			// jQuery('span a').css('color','#A8A8A8');
+		 			jQuery(this).toggleClass("activeText");
+		 			// jQuery(this).children().first().css('color','#000000')
+		 			e.preventDefault;
+		 		});	 	
+		 	});
+
+
+
+		 	// Create and Move slider
+	 		window.addEventListener('load', (event) => {
+
+		 		const wrapper = document.querySelector('.main')
+				const links = document.querySelectorAll('.link')
+				const activeLink = document.querySelector('.link.is-active')
+				const line = document.querySelector('.line')
+
+				function setupLine (width, left, top) {
+				  line.style.width = width + 'px'
+				  line.style.left = left + 'px'
+				  line.style.top = top +'px'+'10px'
+				}
+				function init (item) {
+				  setupLine(item.offsetWidth, item.offsetLeft, item.offsetTop + item.offsetHeight)
+				}
+
+				if (activeLink) {
+				  line.style.opacity = 1
+				  init(activeLink)
+				}
+				wrapper.addEventListener('mouseover', function () {
+				  line.style.opacity = 1
+				})
+				wrapper.addEventListener('mouseout', function (e) {
+				  if (activeLink && e.target.className === 'wrapper') {
+				    init(activeLink)
+				  } else {
+				    line.style.opacity = 0
+				  }
+				})
+				for (let i = 0; i < links.length; i++) {
+				  links[i].addEventListener('mouseover', function(e) {
+				    const tg = e.target
+				    setupLine(tg.offsetWidth, tg.offsetLeft, tg.offsetTop + tg.offsetHeight)
+				  })
+				}
+			});
+
+
+
+			// TIME
+			window.addEventListener('load', (event) => {
+				var today = new Date();
+				var time = today.getHours() + ":" + today.getMinutes() +":"+ today.getSeconds();+ ' - '+(today.getMonth()+1)+"/" +today.getDate();
+				var sfTime = today.getTime();
+				// document.getElementById("time").innerHTML = time;
+				
+
+				jQuery("span").click(function() {
+					var offset;
+					
+					if(this.textContent =="hong kong"){
+						offset = 16;
+					}
+					if(this.textContent =="cupertino"){
+						offset = 0;
+					}
+					if(this.textContent =="new york city"){
+						offset = 3;
+					}
+					if(this.textContent =="london"){
+						offset = 8;
+					}
+					if(this.textContent =="amsterdam"){
+						offset = 9;
+					}
+					if(this.textContent =="tokyo"){
+						offset = 17;
+					}
+					if(this.textContent =="sydney"){
+						offset = 19;
+					}
+					var newTime = sfTime + (3600000*offset);
+					var newDate = new Date(newTime);
+					document.getElementById("time").innerHTML = newDate;
+					jQuery('.timeWrapper').css('opacity','1');
+				});
+			});
+	 	</script>
 	</body>
 
 
-	<script>
+	
 
-		// Create DOM elements dynamically
-		fetch('./navigation.json')
-  			.then(function(resp){
-  				return resp.json();
-  			})
- 			.then(function(data) {
- 				document.getElementById("main").innerHTML = data.cities.map(el => "<span class='cityName'>"+"<a class='link'>"+el.section+"</a>"+"</span>");
- 				var newMain = document.getElementById("main").innerHTML.replace(/,/g, '').replace(/-/g, ' ');
- 				document.getElementById("main").innerHTML = newMain;
- 			})
-
- 		// Change text color on click
- 		window.addEventListener('load', (event) => {
-	 		jQuery("span").click(function(e) {
-	 			jQuery('span').removeClass("activeText");
-	 			// jQuery('span a').css('color','#A8A8A8');
-	 			jQuery(this).toggleClass("activeText");
-	 			// jQuery(this).children().first().css('color','#000000')
-	 			e.preventDefault;
-	 		});	 	
-	 	});
- 	</script>
-
- 	<script>
- 		// Create and Move slider
- 		window.addEventListener('load', (event) => {
-
-	 		const wrapper = document.querySelector('.main')
-			const links = document.querySelectorAll('.link')
-			const activeLink = document.querySelector('.link.is-active')
-			const line = document.querySelector('.line')
-
-			function setupLine (width, left, top) {
-			  line.style.width = width + 'px'
-			  line.style.left = left + 'px'
-			  line.style.top = top +'px'+'10px'
-			}
-			function init (item) {
-			  setupLine(item.offsetWidth, item.offsetLeft, item.offsetTop + item.offsetHeight)
-			}
-
-			if (activeLink) {
-			  line.style.opacity = 1
-			  init(activeLink)
-			}
-			wrapper.addEventListener('mouseover', function () {
-			  line.style.opacity = 1
-			})
-			wrapper.addEventListener('mouseout', function (e) {
-			  if (activeLink && e.target.className === 'wrapper') {
-			    init(activeLink)
-			  } else {
-			    line.style.opacity = 0
-			  }
-			})
-			for (let i = 0; i < links.length; i++) {
-			  links[i].addEventListener('mouseover', function(e) {
-			    const tg = e.target
-			    setupLine(tg.offsetWidth, tg.offsetLeft, tg.offsetTop + tg.offsetHeight)
-			  })
-			}
-		});
-
-
-
-		// TIME
-		window.addEventListener('load', (event) => {
-			var today = new Date();
-			var time = today.getHours() + ":" + today.getMinutes() +":"+ today.getSeconds();+ ' - '+(today.getMonth()+1)+"/" +today.getDate();
-			var sfTime = today.getTime();
-			// document.getElementById("time").innerHTML = time;
-			
-
-			jQuery("span").click(function() {
-				var offset;
-				
-				if(this.textContent =="hong kong"){
-					offset = 16;
-				}
-				if(this.textContent =="cupertino"){
-					offset = 0;
-				}
-				if(this.textContent =="new york city"){
-					offset = 3;
-				}
-				if(this.textContent =="london"){
-					offset = 8;
-				}
-				if(this.textContent =="amsterdam"){
-					offset = 9;
-				}
-				if(this.textContent =="tokyo"){
-					offset = 17;
-				}
-				if(this.textContent =="sydney"){
-					offset = 19;
-				}
-				var newTime = sfTime + (3600000*offset);
-				var newDate = new Date(newTime);
-				document.getElementById("time").innerHTML = newDate;
-				jQuery('.timeWrapper').css('opacity','1');
-			});
-		});
-	</script>
-
-	<script></script>
 </html>
