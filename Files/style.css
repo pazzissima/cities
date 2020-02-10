@@ -1,0 +1,52 @@
+#main {
+	width: 82%;
+	margin: 0 auto;
+}
+#main > span {
+  width: calc(100%/7);
+  display: inline-block;
+  text-align: center;
+  text-transform: capitalize;
+  color: #A8A8A8;
+  font-weight: 100;
+  font-size: 1rem;
+  cursor: pointer;
+}
+#main:after {
+  content: "";
+  width: 100%;
+  display: inline-block;
+}
+#main *:hover {
+	color: #357aac;
+}
+#main > span.activeText{
+	color: #000;
+}
+#main *:active{
+	color: #000;
+}
+hr{
+  border-top: 0.3px solid #A8A8A8;
+  margin-top:0px;
+}
+.line {
+  display: inline-block;
+  height: 1.5px;
+  position: absolute;
+  background-color: #000;
+  border-radius: 5px;
+  opacity: 0;
+  transition: left ease .3s, width ease .3s, opacity ease .15s;
+}
+.line.is-active{
+	opacity: 1;
+}
+.timeWrapper{
+	position: relative;
+	text-align:center;
+	margin: 17% auto 3%;
+	color: #A8A8A8;
+	font-style: italic;
+	opacity: 0;
+}
