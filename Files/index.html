@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Cities project</title>
-		<link href="style.css" rel="stylesheet" type="text/css"/>
+		<link href="./style.css" rel="stylesheet" type="text/css"/>
 	</head>
 
 	<body>
@@ -33,21 +33,49 @@
 	 				document.getElementById("main").innerHTML = newMain;
 	 			})
 
-	 		// Change text color on click
+
+
+		 	// Create and Move slider
 	 		window.addEventListener('load', (event) => {
-		 		jQuery("span").click(function(e) {
+
+	 			// Change text color on click
+	 			jQuery("span").click(function(e) {
 		 			jQuery('span').removeClass("activeText");
 		 			// jQuery('span a').css('color','#A8A8A8');
 		 			jQuery(this).toggleClass("activeText");
 		 			// jQuery(this).children().first().css('color','#000000')
 		 			e.preventDefault;
-		 		});	 	
-		 	});
+		 		});	
 
-
-
-		 	// Create and Move slider
-	 		window.addEventListener('load', (event) => {
+	 			jQuery(document).on('click','span',function(e){
+					var offset;
+					
+					if(this.textContent =="hong kong"){
+						offset = 16;
+					}
+					if(this.textContent =="cupertino"){
+						offset = 0;
+					}
+					if(this.textContent =="new york city"){
+						offset = 3;
+					}
+					if(this.textContent =="london"){
+						offset = 8;
+					}
+					if(this.textContent =="amsterdam"){
+						offset = 9;
+					}
+					if(this.textContent =="tokyo"){
+						offset = 17;
+					}
+					if(this.textContent =="sydney"){
+						offset = 19;
+					}
+					var newTime = sfTime + (3600000*offset);
+					var newDate = new Date(newTime);
+					document.getElementById("time").innerHTML = newDate;
+					jQuery('.timeWrapper').css('opacity','1');
+				});
 
 		 		const wrapper = document.querySelector('.main')
 				const links = document.querySelectorAll('.link')
@@ -83,48 +111,19 @@
 				    setupLine(tg.offsetWidth, tg.offsetLeft, tg.offsetTop + tg.offsetHeight)
 				  })
 				}
-			});
 
 
-
-			// TIME
-			window.addEventListener('load', (event) => {
+				// TIME
 				var today = new Date();
 				var time = today.getHours() + ":" + today.getMinutes() +":"+ today.getSeconds();+ ' - '+(today.getMonth()+1)+"/" +today.getDate();
 				var sfTime = today.getTime();
 				// document.getElementById("time").innerHTML = time;
 				
 
-				jQuery("span").click(function() {
-					var offset;
-					
-					if(this.textContent =="hong kong"){
-						offset = 16;
-					}
-					if(this.textContent =="cupertino"){
-						offset = 0;
-					}
-					if(this.textContent =="new york city"){
-						offset = 3;
-					}
-					if(this.textContent =="london"){
-						offset = 8;
-					}
-					if(this.textContent =="amsterdam"){
-						offset = 9;
-					}
-					if(this.textContent =="tokyo"){
-						offset = 17;
-					}
-					if(this.textContent =="sydney"){
-						offset = 19;
-					}
-					var newTime = sfTime + (3600000*offset);
-					var newDate = new Date(newTime);
-					document.getElementById("time").innerHTML = newDate;
-					jQuery('.timeWrapper').css('opacity','1');
-				});
+				
 			});
+
+
 	 	</script>
 	</body>
 </html>
