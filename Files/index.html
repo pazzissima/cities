@@ -31,14 +31,14 @@
 	 				document.getElementById("main").innerHTML = data.cities.map(el => "<span class='cityName'>"+"<a class='link'>"+el.section+"</a>"+"</span>");
 	 				var newMain = document.getElementById("main").innerHTML.replace(/,/g, '').replace(/-/g, ' ');
 	 				document.getElementById("main").innerHTML = newMain;
+	 				callbackFn();
 	 			})
 
 
 
-		 	// Create and Move slider
-	 		window.addEventListener('load', (event) => {
-	 			document.querySelector('.link').classList.add('.is-active');
-		 		const wrapper = document.querySelector('.main')
+ 			function callbackFn(){
+ 				document.querySelector('.link').classList.add('.is-active');
+ 				const wrapper = document.querySelector('.main')
 				const links = document.querySelectorAll('.link')
 				const activeLink = document.querySelector('.link.is-active')
 				const line = document.querySelector('.line')
@@ -72,6 +72,10 @@
 				    setupLine(tg.offsetWidth, tg.offsetLeft, tg.offsetTop + tg.offsetHeight)
 				  })
 				}
+ 			}
+
+
+	 		window.addEventListener('load', (event) => {
 
 
 				// TIME
@@ -88,7 +92,7 @@
 		 			jQuery(this).toggleClass("activeText");
 
 
-
+		 			// Display time
 					var offset;
 					
 					if(this.textContent =="hong kong"){
