@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Cities project</title>
-		<link href="./style.css" rel="stylesheet" type="text/css"/>
+		<link href="./newstyle.css" rel="stylesheet" type="text/css"/>
 	</head>
 
 	<body>
@@ -56,18 +56,18 @@
 				  line.style.opacity = 1
 				  init(activeLink)
 				}
-				wrapper.addEventListener('mouseover', function (e) {
+				wrapper.addEventListener('click', function (e) {
 				  line.style.opacity = 1
 				})
-				wrapper.addEventListener('mouseout', function (e) {
-				  if (activeLink && e.target.className === 'wrapper') {
-				    init(activeLink)
-				  } else {
-				    line.style.opacity = 0
-				  }
-				})
+				// wrapper.addEventListener('mouseout', function (e) {
+				//   if (activeLink && e.target.className === 'wrapper') {
+				//     init(activeLink)
+				//   } else {
+				//     line.style.opacity = 0
+				//   }
+				// })
 				for (let i = 0; i < links.length; i++) {
-				  links[i].addEventListener('mouseover', function(e) {
+				  links[i].addEventListener('click', function(e) {
 				    const tg = e.target;
 				    setupLine(tg.offsetWidth, tg.offsetLeft, tg.offsetTop + tg.offsetHeight)
 				  })
